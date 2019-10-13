@@ -32,7 +32,7 @@ func combina(words []string) []string {
 	response := []string {}
 
 	// aggiungere for che combina un numero di parole da 2 a len(words)
-	
+
 	for i1Parola := 0; i1Parola < len(words); i1Parola++ {
 		for i2Parola := 0; i2Parola < len(words); i2Parola++ {
 			if i1Parola != i2Parola {
@@ -76,3 +76,17 @@ func main() {
 
 	fmt.Println("-------- END ---------")
 }
+
+/*
+import (
+	"crypto/md5"
+	"fmt"
+	"io"
+)
+
+func main() {
+	h := md5.New()
+	io.WriteString(h, "admin")
+	fmt.Printf("%x", h.Sum(nil))
+}
+*/
