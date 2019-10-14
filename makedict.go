@@ -13,7 +13,7 @@ func word2Upper(word string) []string {
 		lista := []string {}
 		
 		for iCarattere := 0; iCarattere < len(word); iCarattere++ {
-			if(iCarattere == iMaiuscola) {
+			if iCarattere == iMaiuscola {
 				lista = append(lista, strings.ToUpper(string(word[iCarattere])))
 			} else {
 				lista = append(lista, string(word[iCarattere]))
