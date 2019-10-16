@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"strings"
+	"crypto/md5"
+	"io"
 )
 
 func combina(words []string) []string {
@@ -110,9 +112,11 @@ func main() {
 		passwords = append(passwords, combina(words)...)
 	}
 
+	// TITLE MAIUSCOLA
 	if len(words) > 0 {
 		var wordsTitle = []string{}
 		wordsTitle = append(wordsTitle, word2Title(words)...)
+		passwords = append(passwords, wordsTitle...)
 		passwords = append(passwords, combina(wordsTitle)...)
 	}
 
@@ -120,25 +124,13 @@ func main() {
 
 	if len(passwords) > 0 {
 		for _, p := range passwords {
-			fmt.Println("Password:", p)
+
+			h := md5.New()
+			io.WriteString(h, p)
+
+			fmt.Printf("|PW: %-32s|MD5: %-32x| \n", p, h.Sum(nil))
 		}
 	} else {
 		fmt.Println("Words list is empty")
 	}
-
-	fmt.Println("-------- END ---------")
 }
-
-/*
-import (
-	"crypto/md5"
-	"fmt"
-	"io"
-)
-
-func main() {
-	h := md5.New()
-	io.WriteString(h, "admin")
-	fmt.Printf("%x", h.Sum(nil))
-}
-*/
