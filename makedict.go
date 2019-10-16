@@ -93,6 +93,47 @@ func word2Title(words []string) []string {
 	return response
 }
 
+func leet(w string) string {
+	var response string
+
+	/*
+	qwertyuiopasdfghjklzxcvbnm
+	qw3r7yu10p45df6hjklzxcv8nm
+	*/
+
+	if len(w) > 0 {
+		for _, c := range w {
+			switch c {
+				case 'e', 'E': c = '3'
+				case 'i', 'I': c = '1'
+				case 'o', 'O': c = '0'
+				case 'a', 'A': c = '4'
+				case 's', 'S': c = '5'
+				case 'g', 'G': c = '6'
+				case 'b', 'B': c = '8'
+				case 'z', 'Z': c = '2'
+				case 't', 'T': c = '7'
+			}
+			response += string(c)
+		}
+	}
+
+	return response
+}
+
+func leets(words []string) []string {
+
+	response := []string {}
+
+	if len(words) > 0 {
+		for _, w := range words {
+			response = append(response, leet(w))
+		}
+	}
+
+	return response
+}
+
 
 func main() {
 	var words = []string{}
@@ -120,6 +161,11 @@ func main() {
 		passwords = append(passwords, combina(wordsTitle)...)
 	}
 
+	// LEET BASIC
+	if len(words) > 0 {
+		passwords = append(passwords, leets(passwords)...)
+	}
+
 	// VISUALIZZA
 
 	if len(passwords) > 0 {
@@ -128,7 +174,7 @@ func main() {
 			h := md5.New()
 			io.WriteString(h, p)
 
-			fmt.Printf("|PW: %-32s|MD5: %-32x| \n", p, h.Sum(nil))
+			fmt.Printf("%s, %x\n", p, h.Sum(nil))
 		}
 	} else {
 		fmt.Println("Words list is empty")
