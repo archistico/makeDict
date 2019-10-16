@@ -5,6 +5,8 @@ import (
 	"strings"
 	"crypto/md5"
 	"io"
+	"bufio"
+	"os"
 )
 
 func combina(words []string) []string {
@@ -138,12 +140,29 @@ func leets(words []string) []string {
 func main() {
 	var words = []string{}
 	var passwords = []string{}
+	reader := bufio.NewReader(os.Stdin)
 
-	words = append(words, strings.ToLower("my"))
-	words = append(words, strings.ToLower("secret"))
-	words = append(words, strings.ToLower("number"))
-	words = append(words, strings.ToLower("is"))
-	words = append(words, strings.ToLower("42"))
+	fmt.Println(" __  __       _        _____  _      _   ")
+	fmt.Println("|  \\/  |     | |      |  __ \\(_)    | |  ")
+	fmt.Println("| \\  / | __ _| | _____| |  | |_  ___| |_ ")
+	fmt.Println("| |\\/| |/ _` | |/ / _ \\ |  | | |/ __| __|")
+	fmt.Println("| |  | | (_| |   <  __/ |__| | | (__| |_ ")
+	fmt.Println("|_|  |_|\\__,_|_|\\_\\___|_____/|_|\\___|\\__|")
+	fmt.Println("\n")							   
+
+  	for c:=0; c<5; c++ {
+    	fmt.Print("Insert word (empty to calc)-> ")
+    	text, _ := reader.ReadString('\n')
+    	// convert CRLF to LF
+    	text = strings.Replace(text, "\n", "", -1)
+		
+    	if strings.Compare("", text) == 0 {
+			break
+		} else {		
+			words = append(words, strings.ToLower(text))
+		}
+	}
+	fmt.Println("")
 
 	// Singoli
 	passwords = append(passwords, words...)
@@ -167,7 +186,6 @@ func main() {
 	}
 
 	// VISUALIZZA
-
 	if len(passwords) > 0 {
 		for _, p := range passwords {
 
