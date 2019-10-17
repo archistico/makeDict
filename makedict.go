@@ -205,7 +205,9 @@ func main() {
 	for c := 0; c < 6; c++ {
 		fmt.Print("Insert word (empty to calc)-> ")
 		text, _ := reader.ReadString('\n')
-		// convert CRLF to LF
+
+		// convert
+		text = strings.Replace(text, "\r\n", "", -1)
 		text = strings.Replace(text, "\n", "", -1)
 
 		if strings.Compare("", text) == 0 {
@@ -240,6 +242,7 @@ func main() {
 	// PREPARA FILE
 	fmt.Print("Output filename (default 'output.csv')-> ")
 	filename, _ := reader.ReadString('\n')
+	filename = strings.Replace(filename, "\r\n", "", -1)
 	filename = strings.Replace(filename, "\n", "", -1)
 
 	if strings.Compare("", filename) == 0 {
