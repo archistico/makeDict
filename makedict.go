@@ -135,6 +135,25 @@ func word2Title(words []string) []string {
 	return response
 }
 
+func sost(w string, m map[string]string) string {
+	var response string
+
+	if len(w) > 0 {
+		for _, c := range w {
+
+			for cOrig, cSost := range m {
+				if cOrig == string(c) {
+					c = rune(cSost[0])
+				}
+			}
+
+			response += string(c)
+		}
+	}
+
+	return response
+}
+
 func leet(w string) string {
 	var response string
 
@@ -176,6 +195,86 @@ func leets(words []string) []string {
 
 	response := []string{}
 
+	// LEET A
+	var mapA = make(map[string]string)
+	mapA["a"] = "4"
+	mapA["A"] = "4"
+
+	if len(words) > 0 {
+		for _, w := range words {
+			response = append(response, sost(w, mapA))
+		}
+	}
+
+	// LEET A2
+	var mapA2 = make(map[string]string)
+	mapA2["a"] = "@"
+	mapA2["A"] = "@"
+
+	if len(words) > 0 {
+		for _, w := range words {
+			response = append(response, sost(w, mapA2))
+		}
+	}
+
+	// LEET E
+	var mapE = make(map[string]string)
+	mapE["e"] = "3"
+	mapE["E"] = "3"
+
+	if len(words) > 0 {
+		for _, w := range words {
+			response = append(response, sost(w, mapE))
+		}
+	}
+
+	// LEET I
+	var mapI = make(map[string]string)
+	mapI["i"] = "1"
+	mapI["I"] = "1"
+
+	if len(words) > 0 {
+		for _, w := range words {
+			response = append(response, sost(w, mapI))
+		}
+	}
+
+	// LEET I2
+	var mapI2 = make(map[string]string)
+	mapI2["i"] = "!"
+	mapI2["I"] = "!"
+
+	if len(words) > 0 {
+		for _, w := range words {
+			response = append(response, sost(w, mapI2))
+		}
+	}
+
+	// LEET O
+	var mapO = make(map[string]string)
+	mapO["o"] = "0"
+	mapO["O"] = "0"
+
+	if len(words) > 0 {
+		for _, w := range words {
+			response = append(response, sost(w, mapO))
+		}
+	}
+
+	// LEET U
+	var mapU = make(map[string]string)
+	mapU["u"] = "v"
+	mapU["U"] = "V"
+
+	if len(words) > 0 {
+		for _, w := range words {
+			response = append(response, sost(w, mapU))
+		}
+	}
+
+
+
+	// LEET TOTALE
 	if len(words) > 0 {
 		for _, w := range words {
 			response = append(response, leet(w))
