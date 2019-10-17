@@ -230,4 +230,6 @@ func main() {
 	}
 
 	w.Flush()
+
+	fmt.Println("By Archistico - Emilie Rollandin")
 }
