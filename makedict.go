@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"crypto/md5"
+	"crypto/sha1"
 	"fmt"
 	"io"
 	"os"
@@ -85,6 +86,39 @@ func combina(words []string) []string {
 		}
 	}
 
+	// 6 parole
+	if len(words) >= 6 {
+		for i1Parola := 0; i1Parola < len(words); i1Parola++ {
+			for i2Parola := 0; i2Parola < len(words); i2Parola++ {
+				for i3Parola := 0; i3Parola < len(words); i3Parola++ {
+					for i4Parola := 0; i4Parola < len(words); i4Parola++ {
+						for i5Parola := 0; i5Parola < len(words); i5Parola++ {
+							for i6Parola := 0; i6Parola < len(words); i6Parola++ {
+								if i1Parola != i2Parola &&
+									i2Parola != i3Parola &&
+									i1Parola != i3Parola &&
+									i3Parola != i4Parola &&
+									i1Parola != i4Parola &&
+									i2Parola != i4Parola &&
+									i1Parola != i5Parola &&
+									i2Parola != i5Parola &&
+									i3Parola != i5Parola &&
+									i4Parola != i5Parola &&
+									i1Parola != i6Parola &&
+									i2Parola != i6Parola &&
+									i3Parola != i6Parola &&
+									i4Parola != i6Parola &&
+									i5Parola != i6Parola {
+									response = append(response, words[i1Parola]+words[i2Parola]+words[i3Parola]+words[i4Parola]+words[i5Parola]+words[i6Parola])
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	return response
 }
 
@@ -156,15 +190,19 @@ func main() {
 	var passwords = []string{}
 	reader := bufio.NewReader(os.Stdin)
 
+	fmt.Print("-------------------------------------------\n")
 	fmt.Println(" __  __       _        _____  _      _   ")
 	fmt.Println("|  \\/  |     | |      |  __ \\(_)    | |  ")
 	fmt.Println("| \\  / | __ _| | _____| |  | |_  ___| |_ ")
 	fmt.Println("| |\\/| |/ _` | |/ / _ \\ |  | | |/ __| __|")
 	fmt.Println("| |  | | (_| |   <  __/ |__| | | (__| |_ ")
 	fmt.Println("|_|  |_|\\__,_|_|\\_\\___|_____/|_|\\___|\\__|")
-	fmt.Println("\n")
+	fmt.Print("\n")
+	fmt.Print("-------------------------------------------\n")
+	fmt.Print("| Password permutation and hash MD5, SHA1 |\n")
+	fmt.Print("-------------------------------------------\n")
 
-	for c := 0; c < 5; c++ {
+	for c := 0; c < 6; c++ {
 		fmt.Print("Insert word (empty to calc)-> ")
 		text, _ := reader.ReadString('\n')
 		// convert CRLF to LF
@@ -200,12 +238,12 @@ func main() {
 	}
 
 	// PREPARA FILE
-	fmt.Print("Output filename (default 'output.txt')-> ")
+	fmt.Print("Output filename (default 'output.csv')-> ")
 	filename, _ := reader.ReadString('\n')
 	filename = strings.Replace(filename, "\n", "", -1)
 
 	if strings.Compare("", filename) == 0 {
-		filename = "output.txt"
+		filename = "output.csv"
 	}
 	f, err := os.Create(filename)
 	check(err)
@@ -218,9 +256,12 @@ func main() {
 		for _, p := range passwords {
 
 			h := md5.New()
-			io.WriteString(h, p)
+			hs := sha1.New()
 
-			str := fmt.Sprintf("%s, %x\n", p, h.Sum(nil))
+			io.WriteString(h, p)
+			io.WriteString(hs, p)
+
+			str := fmt.Sprintf("%s, %x, %x\n", p, h.Sum(nil), hs.Sum(nil))
 
 			_, err := w.WriteString(str)
 			check(err)
@@ -231,5 +272,5 @@ func main() {
 
 	w.Flush()
 
-	fmt.Println("By Archistico - Emilie Rollandin")
+	fmt.Println("\nBy Archistico - Emilie Rollandin")
 }
